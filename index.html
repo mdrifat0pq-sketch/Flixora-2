@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flixora - Bengali Subtitles</title>
+    <style>
+        body { background: #0b0f19; color: white; font-family: sans-serif; margin: 0; padding: 15px; }
+        .header { font-size: 28px; font-weight: bold; color: #00d4ff; margin-bottom: 20px; text-align: center; }
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .card { background: #1c222d; border-radius: 12px; overflow: hidden; border: 1px solid #333; }
+        .card img { width: 100%; height: 220px; object-fit: cover; }
+        .card-info { padding: 10px; font-size: 14px; text-align: center; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="header">FLIXORA</div>
+    <div class="grid" id="movie-list"></div>
+
+    <script>
+        // তোর গিটহাবের RAW JSON লিঙ্ক এখানে বসাবি
+        const dataUrl = "https://raw.githubusercontent.com/তোর_ইউজারনেম/Flixora/main/movies.json";
+
+        async function loadMovies() {
+            const res = await fetch(dataUrl);
+            const movies = await res.json();
+            const list = document.getElementById('movie-list');
+            
+            movies.forEach(movie => {
+                list.innerHTML += `
+                    <div class="card" onclick="window.location.href='player.html?video=${movie.video_url}'">
+                        <img src="${movie.poster}">
+                        <div class="card-info">${movie.title}</div>
+                    </div>
+                `;
+            });
+        }
+        loadMovies();
+    </script>
+</body>
+</html>
